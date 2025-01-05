@@ -39,7 +39,7 @@ public class MessageService {
 		
 		List<Message> messages = new ArrayList<>();
 		String sql = "SELECT * FROM message";
-		try {
+		try { 
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
@@ -55,6 +55,13 @@ public class MessageService {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return messages; 
 	}
@@ -64,7 +71,7 @@ public class MessageService {
 		Message message = new Message();
 		try {
 			
-			Statement st = con.createStatement();
+			PreparedStatement st = con.prepareStatement(sql);
 			ResultSet rs = st.executeQuery(sql);
 			
 			if(rs.next()) {
@@ -75,12 +82,19 @@ public class MessageService {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return message;
 		//return messages.get(id);
 	}
 	
-	public Message addMessage(Message message) {
+	public Message addMessage(Message message){
 		/*message.setId(messages.size() + 1);
 		messages.put(message.getId(), message);
 		return message;*/
@@ -96,6 +110,13 @@ public class MessageService {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return message;
 	}
@@ -134,6 +155,13 @@ public class MessageService {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		//return messages.remove(id);
 	}
